@@ -1,0 +1,15 @@
+{
+  "pg": {
+    "host": "ib-postgres",
+    "port": 5432,
+    "database": "lab",
+    "user": "lab",
+    "password": "lab"
+  },
+  "jwt": {
+    "secret": "L4BULABULa8u8u",
+    "aud": "lab",
+    "iss": "lab-backend",
+    "algorithms": "HS256"
+  }
+}
