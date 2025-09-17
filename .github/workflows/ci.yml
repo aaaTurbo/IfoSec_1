@@ -27,7 +27,7 @@ jobs:
       - name: Run npm audit (SAST)
         run: |
           mkdir -p reports
-          npm audit --json > reports/npm-audit.txt || true
+          npm audit > reports/npm-audit.txt || true
 
       # SCA: Snyk
       - name: Run Snyk test (SCA)
@@ -35,7 +35,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: test --json-file-output=reports/snyk-report.txt
+          command: test > reports/snyk-report.txt
         continue-on-error: true
 
       # Upload JSON reports
