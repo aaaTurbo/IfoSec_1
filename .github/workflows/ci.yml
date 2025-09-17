@@ -23,6 +23,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install HTML generator tools
+        run: | 
+          npm install -g json2html
+
       # SAST: npm audit
       - name: Run npm audit (SAST)
         run: |
@@ -39,8 +43,8 @@ jobs:
         continue-on-error: true
 
       # Upload security reports as artifacts
-      - name: Upload scan reports
+      - name: Upload HTML reports
         uses: actions/upload-artifact@v4
         with:
-          name: security-reports
-          path: reports/
+          name: security-html-reports
+          path: reports/*.html
