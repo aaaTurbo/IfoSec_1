@@ -23,17 +23,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install HTML generator tools
-        run: | 
-          npm install -g json2html
-
       # SAST: npm audit
       - name: Run npm audit (SAST)
         run: |
           mkdir -p reports
           npm audit --json > reports/npm-audit.json || true
 
-      # SCA: Snyk (optional)
+      # SCA: Snyk
       - name: Run Snyk test (SCA)
         uses: snyk/actions/node@master
         env:
@@ -42,14 +38,9 @@ jobs:
           command: test --json-file-output=reports/snyk-report.json
         continue-on-error: true
 
-      - name: Convert Snyk report to HTML
-        run: |
-          echo "<h1>Snyk Security Report</h1>" > reports/snyk-report.html
-          json2html < reports/snyk-report.json >> reports/snyk-report.html
-
-      # Upload security reports as artifacts
-      - name: Upload HTML reports
+      # Upload JSON reports
+      - name: Upload JSON security reports
         uses: actions/upload-artifact@v4
         with:
-          name: security-html-reports
-          path: reports/*.html
+          name: security-json-reports
+          path: reports/*.json
