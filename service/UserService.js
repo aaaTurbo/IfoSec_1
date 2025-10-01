@@ -1,6 +1,5 @@
 const Dao = require("../dao/UserDao");
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 module.exports = class UserService {
 
@@ -43,7 +42,7 @@ module.exports = class UserService {
     }
 
     async hashString(str) {
-        return bcrypt.hash(str, saltRounds);
+        return bcrypt.hash(str, await bcrypt.genSalt());
     }
 
 }
