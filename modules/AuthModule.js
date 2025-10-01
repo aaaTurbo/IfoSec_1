@@ -3,7 +3,7 @@ const UserService = require("../service/UserService")
 const UserSerializer = require("../serializers/UserSerializer")
 const AuthProvider = require("../utils/AuthProvider")
 
-const prefix = "/api/auth";
+const prefix = "/auth";
 
 const AuthModule = express();
 
