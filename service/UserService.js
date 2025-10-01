@@ -1,5 +1,6 @@
 const Dao = require("../dao/UserDao");
-const crypto = require("crypto");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = class UserService {
 
@@ -20,9 +21,8 @@ module.exports = class UserService {
     }
 
     async auth(user) {
-        user.password = this.hashString(user.password);
         let found = await this.findByUsername(user);
-        if (found.password === user.password) {
+        if (await bcrypt.compare(user.password, found.password)) {
             return true;
         } else {
             throw new Error("Invalid login");
@@ -30,7 +30,7 @@ module.exports = class UserService {
     }
 
     async save(user) {
-        user.password = this.hashString(user.password);
+        user.password = await this.hashString(user.password);
         return this.dao.save(user);
     }
 
@@ -42,8 +42,8 @@ module.exports = class UserService {
         return this.dao.findAll();
     }
 
-    hashString(str) {
-        return crypto.createHash('md5').update(str).digest("hex");
+    async hashString(str) {
+        return bcrypt.hash(str, saltRounds);
     }
 
 }
