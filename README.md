@@ -77,7 +77,30 @@ JWT-токен в заголовке запроса. На уровне middlewar
 
 ### Отчет SAST (Static Application Security Testing)
 Для тестирования используется npm audit
-<img src="./img/audit.png">
+```
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {},
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dependencies": {
+      "prod": 102,
+      "dev": 0,
+      "optional": 1,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 102
+    }
+  }
+}
+```
 
 ### Отчет SCA (Software Composition Analysis)
 
